@@ -114,4 +114,4 @@ class UserSignInAPIView(generics.GenericAPIView):
             )
 
         message = "Welcome " + user.name
-        return Response({"message", message})
+        return Response({"message": message})

@@ -10,11 +10,12 @@ class TestSetUp(APITestCase):
         self.sign_up_url = reverse("sign-up")
         self.verify_update_url = reverse("verify-update")
         self.otp_url = reverse("otp")
+        self.sign_in_url = reverse("sign-in")
         self.fake = Faker()
 
         self.user = CustomUser.objects.create(
             name=self.fake.name(),
-            mobile_number=self.fake.phone_number(),
+            mobile_number=self.fake.phone_number()[:20],
             is_verified=True,
         )
         return super().setUp()
