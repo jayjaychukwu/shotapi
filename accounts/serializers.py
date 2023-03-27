@@ -17,3 +17,8 @@ class VerifyUpdateSerializer(serializers.Serializer):
     otp = serializers.CharField()
     mobile_number = serializers.CharField()
     name = serializers.CharField()
+
+
+class SignInSerializer(serializers.Serializer):
+    mobile_number = serializers.CharField()
+    otp = serializers.CharField()
