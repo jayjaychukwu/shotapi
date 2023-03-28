@@ -29,6 +29,7 @@ INSTALLED_APPS = [
     "drf_yasg",
     # local apps
     "accounts",
+    "ratings",
 ]
 
 MIDDLEWARE = [
