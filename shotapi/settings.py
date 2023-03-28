@@ -27,6 +27,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     # third party apps
     "drf_yasg",
+    "rest_framework_simplejwt",
     # local apps
     "accounts",
     "ratings",
@@ -107,6 +108,21 @@ USE_TZ = True
 # Custom User Definition
 AUTH_USER_MODEL = "accounts.CustomUser"
 
+# REST FRAMEWORK SETTINGS
+REST_FRAMEWORK = {
+    "DEFAULT_AUTHENTICATION_CLASSES": ("rest_framework_simplejwt.authentication.JWTAuthentication",),
+}
+
+# Swagger docs settings
+SWAGGER_SETTINGS = {
+    "SECURITY_DEFINITIONS": {
+        "Auth Token eg [Bearer (JWT)]": {
+            "type": "apiKey",
+            "name": "Authorization",
+            "in": "header",
+        }
+    }
+}
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 

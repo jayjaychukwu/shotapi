@@ -6,7 +6,11 @@ from ratings.models import ImageRating
 class ImageRatingSerializer(serializers.ModelSerializer):
     class Meta:
         model = ImageRating
-        fields = "__all__"
+        fields = [
+            "image_url",
+            "name",
+            "is_accepted",
+        ]
 
     def validate_image_url(self, value):
         user = self.context["request"].user
