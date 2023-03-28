@@ -1,6 +1,7 @@
 from drf_yasg.utils import swagger_auto_schema
 from rest_framework import generics, status
 from rest_framework.response import Response
+from rest_framework_simplejwt.tokens import RefreshToken
 
 from accounts.models import CustomUser
 from accounts.serializers import (
@@ -113,5 +114,7 @@ class UserSignInAPIView(generics.GenericAPIView):
                 status=status.HTTP_400_BAD_REQUEST,
             )
 
+        refresh = RefreshToken.for_user(user)
+
         message = "Welcome " + user.name
-        return Response({"message": message})
+        return Response({"message": message, "data": {"refresh": str(refresh), "access": str(refresh.access_token)}})

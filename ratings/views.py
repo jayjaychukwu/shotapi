@@ -24,24 +24,22 @@ class ImageAPIView(generics.GenericAPIView):
             {"url": "http://getdrawings.com/get-icon#number-one-icon-17.png", "name": "Five"},
         ]
 
-        image_list = []
         for image in images:
             if image.get("url") not in already_rated_urls:
-                image_list.append(image)
-                serialized_data = ImageDisplaySerializer(image_list, many=True)
-                return Response({"images": serialized_data.data})
+                return Response({"url": image["url"], "name": image["name"]})
 
         return Response({"message": f"{user.name}, you have rated all the images. Thank You!"})
 
     def post(self, request, *args, **kwargs):
         serializer = self.serializer_class(data=request.data, context={"request": request})
         serializer.is_valid(raise_exception=True)
-        image_url = serializer.validated_data["image_url"]
+        serializer.save(user=request.user)
         is_accepted = serializer.validated_data["is_accepted"]
         name = serializer.validated_data["name"]
         user = request.user
-        image_rating = ImageRating.objects.create(user=user, image_url=image_url, is_accepted=is_accepted)
-        message = f"{user.name}, you have {'selected' if is_accepted else 'rejected'} image {image_rating.name}"
+        # image_rating = ImageRating.objects.create(user=user, image_url=image_url, is_accepted=is_accepted, name=name)
+        message = f"{user.name}, you have {'selected' if is_accepted else 'rejected'} image {name}"
+        return Response({"message": message})
 
 
 class ImageHistoryAPIView(generics.ListAPIView):
