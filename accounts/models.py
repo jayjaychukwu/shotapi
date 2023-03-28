@@ -10,3 +10,6 @@ class CustomUser(AbstractUser):
 
     USERNAME_FIELD = "mobile_number"
     REQUIRED_FIELDS = ["username"]
+
+    def __str__(self) -> str:
+        return "{} {}".format(self.mobile_number, self.name)

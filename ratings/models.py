@@ -13,3 +13,6 @@ class ImageRating(models.Model):
 
     class Meta:
         ordering = ["-created_at"]
+
+    def __str__(self) -> str:
+        return f"{self.user.name} {'accepted' if self.is_accepted else 'rejected'} image {self.name}"
